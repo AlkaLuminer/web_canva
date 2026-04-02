@@ -585,8 +585,6 @@ update_cursor();
 
 // ── LAYER TABS ───────────────────────────────────────────────────────────────
 
-// ── LAYER TABS ───────────────────────────────────────────────────────────────
-
 const layer_visibility = [true, true, true];   // visibility state per layer
 
 function update_layer_z_order() {
