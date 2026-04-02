@@ -91,13 +91,3 @@
 ### Web page link
 
     
-
-### Others (Optional)
-
-    Anything you want to say to TAs.
-
-<style>
-table th{
-    width: 100%;
-}
-</style>
