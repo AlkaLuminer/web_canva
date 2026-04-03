@@ -7,11 +7,11 @@ const canvas_height = 750;
 
 // ── CANVAS ELEMENTS ──────────────────────────────────────────────────────────
 
-const image_canvas   = document.getElementById('imageCanvas');
-const draw_layer_0   = document.getElementById('layer0');
-const draw_layer_1   = document.getElementById('layer1');
-const draw_layer_2   = document.getElementById('layer2');
-const preview_canvas = document.getElementById('previewCanvas');
+const image_canvas   = document.getElementById('image_canvas');
+const draw_layer_0   = document.getElementById('layer_0');
+const draw_layer_1   = document.getElementById('layer_1');
+const draw_layer_2   = document.getElementById('layer_2');
+const preview_canvas = document.getElementById('preview_canvas');
 const draw_layers    = [draw_layer_0, draw_layer_1, draw_layer_2];
 
 function set_canvas_size(canvas) {
@@ -21,7 +21,7 @@ function set_canvas_size(canvas) {
 
 [image_canvas, draw_layer_0, draw_layer_1, draw_layer_2, preview_canvas].forEach(set_canvas_size);
 
-const canvas_wrapper  = document.getElementById('canvas-wrapper');
+const canvas_wrapper  = document.getElementById('canvas_wrapper');
 canvas_wrapper.style.width  = canvas_width  + 'px';
 canvas_wrapper.style.height = canvas_height + 'px';
 
@@ -31,8 +31,8 @@ const preview_context = preview_canvas.getContext('2d');
 
 // ── ZOOM AND PAN STATE ───────────────────────────────────────────────────────
 
-const viewport  = document.getElementById('canvas-viewport');
-const scene     = document.getElementById('canvas-scene');
+const viewport  = document.getElementById('canvas_viewport');
+const scene     = document.getElementById('canvas_scene');
 let zoom        = 1;
 let pan_x       = 0;
 let pan_y       = 0;
@@ -42,13 +42,13 @@ let space_down  = false;
 
 function apply_transform() {
     scene.style.transform = `translate(${ pan_x }px, ${ pan_y }px) scale(${ zoom })`;
-    const zoom_label = document.getElementById('zoomLabel');
+    const zoom_label = document.getElementById('zoom_label');
     if (zoom_label) {
         const zoom_text = Math.round(zoom * 100) + '%';
         zoom_label.value       = zoom_text;
         zoom_label.textContent = zoom_text;
     }
-    document.getElementById('zoomStatus').textContent   =
+    document.getElementById('zoom_status').textContent   =
         `Zoom: ${ Math.round(zoom * 100) }%  ·  Scroll to zoom  ·  Space + drag to pan`;
 }
 
@@ -68,18 +68,18 @@ window.addEventListener('load', () => {
     draw_paper_texture();
 });
 
-document.getElementById('zoomInBtn').addEventListener('click',  () => set_zoom(zoom * 1.25));
-document.getElementById('zoomOutBtn').addEventListener('click', () => set_zoom(zoom / 1.25));
-document.getElementById('zoomFitBtn').addEventListener('click', fit_canvas_to_screen);
+document.getElementById('zoom_in_btn').addEventListener('click',  () => set_zoom(zoom * 1.25));
+document.getElementById('zoom_out_btn').addEventListener('click', () => set_zoom(zoom / 1.25));
+document.getElementById('zoom_fit_btn').addEventListener('click', fit_canvas_to_screen);
 
 // Allow typing a zoom value directly into the zoom label input.
-document.getElementById('zoomLabel').addEventListener('change', event => {
+document.getElementById('zoom_label').addEventListener('change', event => {
     const raw   = event.target.value.replace('%', '').trim();
     const value = parseFloat(raw);
     if (!isNaN(value) && value > 0) set_zoom(value / 100);
     else event.target.value = Math.round(zoom * 100) + '%';
 });
-document.getElementById('zoomLabel').addEventListener('keydown', event => {
+document.getElementById('zoom_label').addEventListener('keydown', event => {
     if (event.key === 'Enter') { event.target.blur(); }
 });
 
@@ -106,7 +106,7 @@ document.addEventListener('keydown', event => {
     if (event.code === 'Space' && !event.target.matches('input, textarea')) {
         event.preventDefault();
         space_down = true;
-        viewport.classList.add('pan-mode');
+        viewport.classList.add('pan_mode');
     }
     if (event.ctrlKey && event.key === 'z') { event.preventDefault(); undo(); }
     if (event.ctrlKey && event.key === 'y') { event.preventDefault(); redo(); }
@@ -115,7 +115,7 @@ document.addEventListener('keydown', event => {
 document.addEventListener('keyup', event => {
     if (event.code === 'Space') {
         space_down = false;
-        viewport.classList.remove('pan-mode');
+        viewport.classList.remove('pan_mode');
         viewport.classList.remove('panning');
     }
 });
@@ -271,8 +271,8 @@ function restore_snapshot(snapshot) {
         select_image(active_image_id);
     } else {
         active_image_id = null;
-        document.getElementById('image-detail').classList.add('hidden');
-        if (!image_list.length) document.getElementById('image-panel').classList.add('hidden');
+        document.getElementById('image_detail').classList.add('hidden');
+        if (!image_list.length) document.getElementById('image_panel').classList.add('hidden');
     }
 }
 
@@ -364,17 +364,17 @@ function create_image_object(image_element, name) {
 }
 
 function render_image_list() {
-    const list_element = document.getElementById('image-list');
+    const list_element = document.getElementById('image_list_panel');
     list_element.innerHTML = '';
 
     for (const image_object of image_list) {
         const list_item = document.createElement('div');
-        list_item.className  = 'image-list-item' + (image_object.id === active_image_id ? ' active' : '');
+        list_item.className  = 'image_list_item' + (image_object.id === active_image_id ? ' active' : '');
         list_item.dataset.id = image_object.id;
 
         // Thumbnail
         const thumbnail         = document.createElement('canvas');
-        thumbnail.className     = 'image-list-thumbnail';
+        thumbnail.className     = 'image_list_thumbnail';
         thumbnail.width         = 140;
         thumbnail.height        = 54;
         thumbnail.getContext('2d').drawImage(image_object.offscreen_canvas, 0, 0, 140, 54);
@@ -382,17 +382,17 @@ function render_image_list() {
 
         // Name label
         const name_label           = document.createElement('div');
-        name_label.className       = 'image-list-name';
+        name_label.className       = 'image_list_name';
         name_label.textContent     = image_object.name;
         list_item.appendChild(name_label);
 
         // Controls row
         const controls_row         = document.createElement('div');
-        controls_row.className     = 'image-list-controls';
+        controls_row.className     = 'image_list_controls';
 
         // Visibility toggle button
         const visibility_button    = document.createElement('button');
-        visibility_button.className = 'image-chip-button' + (image_object.is_visible ? ' on' : '');
+        visibility_button.className = 'image_chip_button' + (image_object.is_visible ? ' on' : '');
         visibility_button.textContent = image_object.is_visible ? '👁 On' : '👁 Off';
         visibility_button.title    = 'Toggle visibility';
         visibility_button.addEventListener('click', event => {
@@ -405,7 +405,7 @@ function render_image_list() {
 
         // Erasable toggle button
         const erasable_button      = document.createElement('button');
-        erasable_button.className  = 'image-chip-button' + (image_object.is_erasable ? ' on' : '');
+        erasable_button.className  = 'image_chip_button' + (image_object.is_erasable ? ' on' : '');
         erasable_button.textContent = image_object.is_erasable ? '🧽 On' : '🧽 Off';
         erasable_button.title      = 'Toggle erasable';
         erasable_button.addEventListener('click', event => {
@@ -414,7 +414,7 @@ function render_image_list() {
             erasable_button.textContent          = image_object.is_erasable ? '🧽 On' : '🧽 Off';
             erasable_button.classList.toggle('on', image_object.is_erasable);
             if (image_object.id === active_image_id) {
-                document.getElementById('imgErasable').checked = image_object.is_erasable;
+                document.getElementById('img_erasable').checked = image_object.is_erasable;
             }
         });
 
@@ -436,20 +436,20 @@ function select_image(id) {
 
     // Only show edit detail panel if the image belongs to the current active layer.
     if (image_object.layer !== active_layer) {
-        document.getElementById('image-detail').classList.add('hidden');
+        document.getElementById('image_detail').classList.add('hidden');
         return;
     }
 
-    const detail_panel = document.getElementById('image-detail');
+    const detail_panel = document.getElementById('image_detail');
     detail_panel.classList.remove('hidden');
 
-    document.getElementById('imgDetailTitle').textContent  = image_object.name;
-    document.getElementById('imgW').value                  = Math.round(image_object.position.w);
-    document.getElementById('imgH').value                  = Math.round(image_object.position.h);
-    document.getElementById('imgX').value                  = Math.round(image_object.position.x);
-    document.getElementById('imgY').value                  = Math.round(image_object.position.y);
-    document.getElementById('imgErasable').checked         = image_object.is_erasable;
-    document.getElementById('image-panel').classList.remove('hidden');
+    document.getElementById('img_detail_title').textContent  = image_object.name;
+    document.getElementById('img_w').value                  = Math.round(image_object.position.w);
+    document.getElementById('img_h').value                  = Math.round(image_object.position.h);
+    document.getElementById('img_x').value                  = Math.round(image_object.position.x);
+    document.getElementById('img_y').value                  = Math.round(image_object.position.y);
+    document.getElementById('img_erasable').checked         = image_object.is_erasable;
+    document.getElementById('image_panel').classList.remove('hidden');
 }
 
 function get_active_image() {
@@ -476,7 +476,7 @@ function redraw_active_image_from_source() {
 }
 
 // Image file upload
-document.getElementById('imageUpload').addEventListener('change', event => {
+document.getElementById('image_upload').addEventListener('change', event => {
     const file = event.target.files[0];
     if (!file) return;
     const reader = new FileReader();
@@ -498,45 +498,45 @@ document.getElementById('imageUpload').addEventListener('change', event => {
 });
 
 // Image width input
-document.getElementById('imgW').addEventListener('change', () => {
+document.getElementById('img_w').addEventListener('change', () => {
     const image_object = get_active_image();
     if (!image_object) return;
     save_undo();
-    image_object.position.w = parseInt(document.getElementById('imgW').value) || 10;
+    image_object.position.w = parseInt(document.getElementById('img_w').value) || 10;
     redraw_active_image_from_source();
 });
 
 // Image height input
-document.getElementById('imgH').addEventListener('change', () => {
+document.getElementById('img_h').addEventListener('change', () => {
     const image_object = get_active_image();
     if (!image_object) return;
     save_undo();
-    image_object.position.h = parseInt(document.getElementById('imgH').value) || 10;
+    image_object.position.h = parseInt(document.getElementById('img_h').value) || 10;
     redraw_active_image_from_source();
 });
 
 // Image x position input
-document.getElementById('imgX').addEventListener('change', () => {
+document.getElementById('img_x').addEventListener('change', () => {
     const image_object = get_active_image();
     if (!image_object) return;
     save_undo();
-    const new_x = parseInt(document.getElementById('imgX').value) || 0;
+    const new_x = parseInt(document.getElementById('img_x').value) || 0;
     move_image_to(image_object, new_x, image_object.position.y);
     redraw_all_images();
 });
 
 // Image y position input
-document.getElementById('imgY').addEventListener('change', () => {
+document.getElementById('img_y').addEventListener('change', () => {
     const image_object = get_active_image();
     if (!image_object) return;
     save_undo();
-    const new_y = parseInt(document.getElementById('imgY').value) || 0;
+    const new_y = parseInt(document.getElementById('img_y').value) || 0;
     move_image_to(image_object, image_object.position.x, new_y);
     redraw_all_images();
 });
 
 // Erasable checkbox
-document.getElementById('imgErasable').addEventListener('change', event => {
+document.getElementById('img_erasable').addEventListener('change', event => {
     const image_object = get_active_image();
     if (!image_object) return;
     image_object.is_erasable = event.target.checked;
@@ -544,44 +544,46 @@ document.getElementById('imgErasable').addEventListener('change', event => {
 });
 
 // Remove image button
-document.getElementById('removeImgBtn').addEventListener('click', () => {
+document.getElementById('remove_img_btn').addEventListener('click', () => {
     save_undo();
     image_list      = image_list.filter(item => item.id !== active_image_id);
     active_image_id = null;
-    document.getElementById('image-detail').classList.add('hidden');
-    if (image_list.length === 0) document.getElementById('image-panel').classList.add('hidden');
+    document.getElementById('image_detail').classList.add('hidden');
+    if (image_list.length === 0) document.getElementById('image_panel').classList.add('hidden');
     redraw_all_images();
     render_image_list();
 });
 
 // ── TOOL SELECTION ───────────────────────────────────────────────────────────
 
-document.querySelectorAll('.tool-button').forEach(button => {
+document.querySelectorAll('.tool_button').forEach(button => {
     button.addEventListener('click', () => {
-        document.querySelectorAll('.tool-button').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tool_button').forEach(b => b.classList.remove('active'));
         button.classList.add('active');
         active_tool = button.dataset.tool;
-        document.getElementById('activeTool').textContent = 'Tool: ' + button.title;
+        document.getElementById('active_tool_label').textContent = 'Tool: ' + button.title;
         update_cursor();
     });
 });
 
 function update_cursor() {
     viewport.className = '';
-    if (active_tool === 'pan') { viewport.classList.add('pan-mode'); return; }
+    if (active_tool === 'pan') { viewport.classList.add('pan_mode'); return; }
     const cursor_map = {
-        pencil:   'pencil-cursor',
-        eraser:   'eraser-cursor',
-        text:     'text-cursor',
-        rect:     'shape-cursor',
-        circle:   'shape-cursor',
-        line:     'shape-cursor',
-        triangle: 'shape-cursor',
-        select:   'select-cursor',
+        pencil:   'pencil_cursor',
+        eraser:   'eraser_cursor',
+        text:     'text_cursor',
+        rect:     'shape_cursor',
+        circle:   'shape_cursor',
+        line:     'shape_cursor',
+        triangle: 'shape_cursor',
+        select:   'select_cursor',
     };
     if (cursor_map[active_tool]) viewport.classList.add(cursor_map[active_tool]);
 }
 update_cursor();
+
+// ── LAYER TABS ───────────────────────────────────────────────────────────────
 
 // ── LAYER TABS ───────────────────────────────────────────────────────────────
 
@@ -594,7 +596,7 @@ function update_layer_z_order() {
         layer.style.zIndex      = index === active_layer ? 3 : 2;
         layer.style.outline     = index === active_layer ? '2px solid rgba(244, 162, 97, 0.4)' : 'none';
         // Sync eye button appearance if it exists
-        const eye_btn = document.querySelector(`.layer-eye-button[data-layer="${ index }"]`);
+        const eye_btn = document.querySelector(`.layer_eye_button[data-layer="${ index }"]`);
         if (eye_btn) {
             eye_btn.textContent = visible ? '👁' : '🚫';
             eye_btn.title       = visible ? 'Hide layer' : 'Show layer';
@@ -618,25 +620,25 @@ function redraw_all_images_with_layer_visibility() {
     }
 }
 
-document.querySelectorAll('.layer-tab').forEach(tab => {
+document.querySelectorAll('.layer_tab').forEach(tab => {
     tab.addEventListener('click', () => {
         save_undo();
-        document.querySelectorAll('.layer-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.layer_tab').forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
         active_layer = parseInt(tab.dataset.layer);
-        document.getElementById('activeLayerLabel').textContent = `Layer ${ active_layer + 1 }`;
+        document.getElementById('active_layer_label').textContent = `Layer ${ active_layer + 1 }`;
         update_layer_z_order();
         // Deselect active image if it doesn't belong to the new layer.
         const current_image = image_list.find(item => item.id === active_image_id);
         if (current_image && current_image.layer !== active_layer) {
             active_image_id = null;
-            document.getElementById('image-detail').classList.add('hidden');
+            document.getElementById('image_detail').classList.add('hidden');
         }
         render_image_list();
     });
 });
 
-document.querySelectorAll('.layer-eye-button').forEach(btn => {
+document.querySelectorAll('.layer_eye_button').forEach(btn => {
     btn.addEventListener('click', event => {
         event.stopPropagation();
         const index                = parseInt(btn.dataset.layer);
@@ -656,10 +658,10 @@ const quick_palette_colors = [
     '#8ac926',  '#ffca3a', '#6a6a6a', '#d4a5a5', '#b5838d',
 ];
 
-const palette_element = document.getElementById('quickPalette');
+const palette_element = document.getElementById('quick_palette');
 quick_palette_colors.forEach(hex_color => {
     const dot             = document.createElement('div');
-    dot.className = 'palette-color-dot';
+    dot.className = 'palette_color_dot';
     dot.style.background  = hex_color;
     dot.addEventListener('click', () => {
         stroke_color = hex_color;
@@ -696,9 +698,9 @@ function play_draw_sound(frequency = 200 + Math.random() * 200, duration = 0.06)
     } catch (error) {}
 }
 
-const background_music = document.getElementById('bgMusic');
+const background_music = document.getElementById('bg_music');
 
-document.getElementById('musicBtn').addEventListener('click', function () {
+document.getElementById('music_btn').addEventListener('click', function () {
     music_on = !music_on;
     if (music_on) {
         background_music.play().catch(() => {});
@@ -709,7 +711,7 @@ document.getElementById('musicBtn').addEventListener('click', function () {
     }
 });
 
-document.getElementById('soundBtn').addEventListener('click', function () {
+document.getElementById('sound_btn').addEventListener('click', function () {
     draw_sound_on = !draw_sound_on;
     this.textContent = draw_sound_on ? '🔊' : '🔇';
     this.classList.toggle('active', draw_sound_on);
@@ -717,21 +719,21 @@ document.getElementById('soundBtn').addEventListener('click', function () {
 
 // ── CUSTOM COLOR PICKER ──────────────────────────────────────────────────────
 
-const color_picker_popup    = document.getElementById('color-picker-popup');
-const color_picker_title    = document.getElementById('cpTitle');
-const color_picker_close    = document.getElementById('cpClose');
-const gradient_box          = document.getElementById('cpGradBox');
-const gradient_canvas       = document.getElementById('cpGradCanvas');
-const gradient_thumb        = document.getElementById('cpGradThumb');
-const hue_bar_canvas        = document.getElementById('cpHueBar');
-const hue_bar_thumb         = document.getElementById('cpHueThumb');
-const alpha_bar_canvas      = document.getElementById('cpAlphaBar');
-const alpha_bar_thumb       = document.getElementById('cpAlphaThumb');
-const color_preview_box     = document.getElementById('cpPreview');
-const hex_input             = document.getElementById('cpHex');
-const apply_color_button    = document.getElementById('cpApply');
-const stroke_swatch         = document.getElementById('strokeSwatch');
-const fill_swatch           = document.getElementById('fillSwatch');
+const color_picker_popup    = document.getElementById('color_picker_popup');
+const color_picker_title    = document.getElementById('cp_title');
+const color_picker_close    = document.getElementById('cp_close');
+const gradient_box          = document.getElementById('cp_grad_box');
+const gradient_canvas       = document.getElementById('cp_grad_canvas');
+const gradient_thumb        = document.getElementById('cp_grad_thumb');
+const hue_bar_canvas        = document.getElementById('cp_hue_bar');
+const hue_bar_thumb         = document.getElementById('cp_hue_thumb');
+const alpha_bar_canvas      = document.getElementById('cp_alpha_bar');
+const alpha_bar_thumb       = document.getElementById('cp_alpha_thumb');
+const color_preview_box     = document.getElementById('cp_preview');
+const hex_input             = document.getElementById('cp_hex');
+const apply_color_button    = document.getElementById('cp_apply');
+const stroke_swatch         = document.getElementById('stroke_swatch');
+const fill_swatch           = document.getElementById('fill_swatch');
 
 let picker_target    = 'stroke';   // 'stroke' | 'fill'
 let picker_hue       = 0;
@@ -988,24 +990,24 @@ update_color_swatches();
 
 // ── CONTROLS ─────────────────────────────────────────────────────────────────
 
-document.getElementById('brushSize').addEventListener('input', event => {
+document.getElementById('brush_size').addEventListener('input', event => {
     brush_size = parseInt(event.target.value);
-    document.getElementById('brushSizeVal').textContent = brush_size + 'px';
+    document.getElementById('brush_size_val').textContent = brush_size + 'px';
 });
 
 document.getElementById('opacity').addEventListener('input', event => {
     draw_opacity = parseFloat(event.target.value);
-    document.getElementById('opacityVal').textContent = Math.round(draw_opacity * 100) + '%';
+    document.getElementById('opacity_val').textContent = Math.round(draw_opacity * 100) + '%';
 });
 
-document.getElementById('fillToggle').addEventListener('change', event => {
+document.getElementById('fill_toggle').addEventListener('change', event => {
     use_fill = event.target.checked;
 });
 
 // ── UNDO AND REDO BUTTONS ────────────────────────────────────────────────────
 
-document.getElementById('undoBtn').addEventListener('click', undo);
-document.getElementById('redoBtn').addEventListener('click', redo);
+document.getElementById('undo_btn').addEventListener('click', undo);
+document.getElementById('redo_btn').addEventListener('click', redo);
 
 function undo() {
     if (!undo_stack.length) return;
@@ -1153,7 +1155,7 @@ let sound_throttle_time = 0;
 function on_pointer_move(event) {
     if (space_down || active_tool === 'pan') return;
     const { x, y } = get_event_canvas_position(event);
-    document.getElementById('cursorPos').textContent = `x: ${ Math.round(x) }, y: ${ Math.round(y) }`;
+    document.getElementById('cursor_pos').textContent = `x: ${ Math.round(x) }, y: ${ Math.round(y) }`;
 
     if (is_dragging_image && image_drag_start) {
         const image_object = get_active_image();
@@ -1162,8 +1164,8 @@ function on_pointer_move(event) {
         const new_y = image_drag_start.initial_image_y + (y - image_drag_start.mouse_y);
         move_image_to(image_object, new_x, new_y);
         redraw_all_images();
-        document.getElementById('imgX').value = Math.round(new_x);
-        document.getElementById('imgY').value = Math.round(new_y);
+        document.getElementById('img_x').value = Math.round(new_x);
+        document.getElementById('img_y').value = Math.round(new_y);
         return;
     }
 
@@ -1352,20 +1354,20 @@ font_definitions.forEach(font => {
     document.head.appendChild(link);
 });
 
-const text_overlay  = document.getElementById('text-input-overlay');
-const text_input    = document.getElementById('textInput');
+const text_overlay  = document.getElementById('text_input_overlay');
+const text_input    = document.getElementById('text_input');
 
 const font_selector = document.createElement('div');
-font_selector.id = 'font-selector';
+font_selector.id = 'font_selector';
 font_definitions.forEach((font, index) => {
     const button          = document.createElement('button');
-    button.className      = 'font-choice-button' + (index === 0 ? ' active' : '');
+    button.className      = 'font_choice_button' + (index === 0 ? ' active' : '');
     button.textContent    = font.label;
     button.style.fontFamily = font.family;
     button.dataset.index  = index;
     button.addEventListener('mousedown', event => {
         event.stopPropagation();
-        document.querySelectorAll('.font-choice-button').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.font_choice_button').forEach(b => b.classList.remove('active'));
         button.classList.add('active');
         active_font_index         = index;
         text_input.style.fontFamily = font.family;
@@ -1432,10 +1434,10 @@ function commit_text() {
 let crop_is_dragging = false;
 let crop_active_handle = null;
 let crop_rectangle   = { x: 100, y: 100, w: 300, h: 200 };
-const crop_overlay   = document.getElementById('cropOverlay');
-const crop_box       = document.getElementById('cropBox');
+const crop_overlay   = document.getElementById('crop_overlay');
+const crop_box       = document.getElementById('crop_box');
 
-document.getElementById('cropBtn').addEventListener('click', () => {
+document.getElementById('crop_btn').addEventListener('click', () => {
     const image_object = get_active_image();
     if (!image_object) return;
     crop_rectangle = {
@@ -1459,8 +1461,8 @@ function update_crop_box_position() {
 }
 
 crop_box.addEventListener('mousedown', event => {
-    if (event.target.classList.contains('crop-handle')) {
-        crop_active_handle = event.target.className.replace('crop-handle ', '').trim();
+    if (event.target.classList.contains('crop_handle')) {
+        crop_active_handle = event.target.className.replace('crop_handle ', '').trim();
     } else {
         crop_is_dragging = true;
     }
@@ -1495,7 +1497,7 @@ document.addEventListener('mouseup', () => {
     crop_active_handle = null;
 });
 
-document.getElementById('confirmCrop').addEventListener('click', () => {
+document.getElementById('confirm_crop').addEventListener('click', () => {
     const image_object = get_active_image();
     if (!image_object) { crop_overlay.classList.add('hidden'); return; }
     save_undo();
@@ -1538,13 +1540,13 @@ document.getElementById('confirmCrop').addEventListener('click', () => {
     crop_overlay.classList.add('hidden');
 });
 
-document.getElementById('cancelCrop').addEventListener('click', () => {
+document.getElementById('cancel_crop').addEventListener('click', () => {
     crop_overlay.classList.add('hidden');
 });
 
 // ── DOWNLOAD ─────────────────────────────────────────────────────────────────
 
-document.getElementById('downloadBtn').addEventListener('click', () => {
+document.getElementById('download_btn').addEventListener('click', () => {
     const output_canvas   = document.createElement('canvas');
     output_canvas.width   = canvas_width;
     output_canvas.height  = canvas_height;
@@ -1564,9 +1566,9 @@ document.getElementById('downloadBtn').addEventListener('click', () => {
 
 // ── BRUSH SHAPES ─────────────────────────────────────────────────────────────
 
-document.querySelectorAll('.brush-shape-button').forEach(button => {
+document.querySelectorAll('.brush_shape_button').forEach(button => {
     button.addEventListener('click', () => {
-        document.querySelectorAll('.brush-shape-button').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.brush_shape_button').forEach(b => b.classList.remove('active'));
         button.classList.add('active');
         brush_shape = button.dataset.shape;
     });
@@ -1574,7 +1576,7 @@ document.querySelectorAll('.brush-shape-button').forEach(button => {
 
 // ── REFRESH LAYER ─────────────────────────────────────────────────────────────
 
-document.querySelectorAll('.layer-clear-button').forEach(span => {
+document.querySelectorAll('.layer_clear_button').forEach(span => {
     span.addEventListener('click', event => {
         event.stopPropagation();
         const layer_index = parseInt(span.dataset.layer);
@@ -1593,9 +1595,9 @@ document.querySelectorAll('.layer-clear-button').forEach(span => {
             image_list = image_list.filter(img => img.layer !== layer_index);
             if (removed_ids.has(active_image_id)) {
                 active_image_id = null;
-                document.getElementById('image-detail').classList.add('hidden');
+                document.getElementById('image_detail').classList.add('hidden');
             }
-            if (image_list.length === 0) document.getElementById('image-panel').classList.add('hidden');
+            if (image_list.length === 0) document.getElementById('image_panel').classList.add('hidden');
             redraw_all_images();
             render_image_list();
         }
@@ -1607,36 +1609,36 @@ document.querySelectorAll('.layer-clear-button').forEach(span => {
 let current_canvas_width  = canvas_width;
 let current_canvas_height = canvas_height;
 
-document.getElementById('canvasSizeBtn').addEventListener('click', () => {
-    document.getElementById('canvasWInput').value = current_canvas_width;
-    document.getElementById('canvasHInput').value = current_canvas_height;
-    document.getElementById('canvas-size-modal').classList.remove('hidden');
+document.getElementById('canvas_size_btn').addEventListener('click', () => {
+    document.getElementById('canvas_w_input').value = current_canvas_width;
+    document.getElementById('canvas_h_input').value = current_canvas_height;
+    document.getElementById('canvas_size_modal').classList.remove('hidden');
 });
 
-document.getElementById('canvasSizeClose').addEventListener('click', () => {
-    document.getElementById('canvas-size-modal').classList.add('hidden');
+document.getElementById('canvas_size_close').addEventListener('click', () => {
+    document.getElementById('canvas_size_modal').classList.add('hidden');
 });
 
-document.getElementById('canvasSizeCancel').addEventListener('click', () => {
-    document.getElementById('canvas-size-modal').classList.add('hidden');
+document.getElementById('canvas_size_cancel').addEventListener('click', () => {
+    document.getElementById('canvas_size_modal').classList.add('hidden');
 });
 
-document.querySelectorAll('.preset-button').forEach(button => {
+document.querySelectorAll('.preset_button').forEach(button => {
     button.addEventListener('click', () => {
-        document.getElementById('canvasWInput').value = button.dataset.w;
-        document.getElementById('canvasHInput').value = button.dataset.h;
+        document.getElementById('canvas_w_input').value = button.dataset.w;
+        document.getElementById('canvas_h_input').value = button.dataset.h;
     });
 });
 
-document.getElementById('canvasSizeApply').addEventListener('click', () => {
-    const new_width  = parseInt(document.getElementById('canvasWInput').value) || current_canvas_width;
-    const new_height = parseInt(document.getElementById('canvasHInput').value) || current_canvas_height;
+document.getElementById('canvas_size_apply').addEventListener('click', () => {
+    const new_width  = parseInt(document.getElementById('canvas_w_input').value) || current_canvas_width;
+    const new_height = parseInt(document.getElementById('canvas_h_input').value) || current_canvas_height;
     if (new_width < 100 || new_height < 100 || new_width > 8000 || new_height > 8000) {
         alert('Size must be between 100 and 8000 pixels.');
         return;
     }
     resize_canvas(new_width, new_height);
-    document.getElementById('canvas-size-modal').classList.add('hidden');
+    document.getElementById('canvas_size_modal').classList.add('hidden');
 });
 
 function resize_canvas(new_width, new_height) {

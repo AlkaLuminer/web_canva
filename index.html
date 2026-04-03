@@ -17,36 +17,36 @@
     <div id="app">
 
         <!-- ── TOP BAR ── -->
-        <header id="top-bar">
-            <div class="app-logo">🖌️ WEB Canvas</div>
+        <header id="top_bar">
+            <div class="app_logo">🖌️ WEB Canvas</div>
 
-            <div class="top-controls">
+            <div class="top_controls">
 
-                <button class="icon-button" id="undoBtn"     title="Undo (Ctrl + Z)">↩ Undo</button>
-                <button class="icon-button" id="redoBtn"     title="Redo (Ctrl + Y)">↪ Redo</button>
+                <button class="icon_button" id="undo_btn"     title="Undo (Ctrl + Z)">↩ Undo</button>
+                <button class="icon_button" id="redo_btn"     title="Redo (Ctrl + Y)">↪ Redo</button>
 
-                <div class="control-divider"></div>
+                <div class="control_divider"></div>
 
-                <label class="icon-button" title="Upload Image">
+                <label class="icon_button" title="Upload Image">
                     🌅 Add Image
-                    <input type="file" id="imageUpload" accept="image/*" hidden />
+                    <input type="file" id="image_upload" accept="image/*" hidden />
                 </label>
 
-                <div class="control-divider"></div>
+                <div class="control_divider"></div>
 
-                <button class="icon-button" id="zoomOutBtn"  title="Zoom Out">−</button>
-                <input id="zoomLabel" type="text" value="100%" style="width:52px; text-align:center; border:none; background:transparent; font:inherit; cursor:text;" />
-                <button class="icon-button" id="zoomInBtn"   title="Zoom In">+</button>
-                <button class="icon-button" id="zoomFitBtn"  title="Fit Canvas to Screen">🏠 Home</button>
+                <button class="icon_button" id="zoom_out_btn"  title="Zoom Out">−</button>
+                <input id="zoom_label" type="text" value="100%" style="width:52px; text-align:center; border:none; background:transparent; font:inherit; cursor:text;" />
+                <button class="icon_button" id="zoom_in_btn"   title="Zoom In">+</button>
+                <button class="icon_button" id="zoom_fit_btn"  title="Fit Canvas to Screen">🏠 Home</button>
 
-                <div class="control-divider"></div>
+                <div class="control_divider"></div>
 
-                <button class="icon-button accent" id="downloadBtn" title="Download Drawing">⬇ Save</button>
+                <button class="icon_button accent" id="download_btn" title="Download Drawing">⬇ Save</button>
 
-                <div class="control-divider"></div>
+                <div class="control_divider"></div>
 
-                <button class="icon-button"        id="musicBtn" title="Toggle Background Music">🎵</button>
-                <button class="icon-button active" id="soundBtn" title="Toggle Draw Sounds">🔊</button>
+                <button class="icon_button"        id="music_btn" title="Toggle Background Music">🎵</button>
+                <button class="icon_button active" id="sound_btn" title="Toggle Draw Sounds">🔊</button>
 
             </div>
         </header>
@@ -55,159 +55,159 @@
         <div id="workspace">
 
             <!-- ── LEFT TOOLBAR ── -->
-            <aside id="left-toolbar">
+            <aside id="left_toolbar">
 
-                <div class="tool-section">
-                    <label class="section-label">Tools</label>
-                    <div class="tool-button-grid">
-                        <button class="tool-button active" data-tool="pencil"   title="Pencil">✏️</button>
-                        <button class="tool-button"        data-tool="eraser"   title="Eraser">🧽</button>
-                        <button class="tool-button"        data-tool="text"     title="Text">T</button>
-                        <button class="tool-button"        data-tool="rect"     title="Rectangle">▭</button>
-                        <button class="tool-button"        data-tool="circle"   title="Circle">○</button>
-                        <button class="tool-button"        data-tool="line"     title="Line">╱</button>
-                        <button class="tool-button"        data-tool="triangle" title="Triangle">△</button>
-                        <button class="tool-button"        data-tool="select"   title="Select/Move Image">⊹</button>
-                        <button class="tool-button"        data-tool="pan"      title="Pan Canvas">✋</button>
+                <div class="tool_section">
+                    <label class="section_label">Tools</label>
+                    <div class="tool_button_grid">
+                        <button class="tool_button active" data-tool="pencil"   title="Pencil">✏️</button>
+                        <button class="tool_button"        data-tool="eraser"   title="Eraser">🧽</button>
+                        <button class="tool_button"        data-tool="text"     title="Text">T</button>
+                        <button class="tool_button"        data-tool="rect"     title="Rectangle">▭</button>
+                        <button class="tool_button"        data-tool="circle"   title="Circle">○</button>
+                        <button class="tool_button"        data-tool="line"     title="Line">╱</button>
+                        <button class="tool_button"        data-tool="triangle" title="Triangle">△</button>
+                        <button class="tool_button"        data-tool="select"   title="Select/Move Image">⊹</button>
+                        <button class="tool_button"        data-tool="pan"      title="Pan Canvas">✋</button>
                     </div>
                 </div>
 
-                <div class="tool-section">
-                    <label class="section-label">Color</label>
-                    <div class="color-swatch-row">
-                        <div class="color-swatch-group">
-                            <div class="color-swatch" id="strokeSwatch" title="Stroke Color"></div>
-                            <span class="swatch-label">Stroke</span>
+                <div class="tool_section">
+                    <label class="section_label">Color</label>
+                    <div class="color_swatch_row">
+                        <div class="color_swatch_group">
+                            <div class="color_swatch" id="stroke_swatch" title="Stroke Color"></div>
+                            <span class="swatch_label">Stroke</span>
                         </div>
-                        <div class="color-swatch-group">
-                            <div class="color-swatch" id="fillSwatch" title="Fill Color"></div>
-                            <span class="swatch-label">Fill</span>
+                        <div class="color_swatch_group">
+                            <div class="color_swatch" id="fill_swatch" title="Fill Color"></div>
+                            <span class="swatch_label">Fill</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="tool-section">
-                    <label class="section-label">Brush Shape</label>
-                    <div class="brush-shape-grid" id="brushShapes">
-                        <button class="brush-shape-button active" data-shape="round"       title="Round">●</button>
-                        <button class="brush-shape-button"        data-shape="square"      title="Square">■</button>
-                        <button class="brush-shape-button"        data-shape="calligraphy" title="Calligraphy">╱</button>
-                        <button class="brush-shape-button"        data-shape="spray"       title="Spray">⁘</button>
+                <div class="tool_section">
+                    <label class="section_label">Brush Shape</label>
+                    <div class="brush_shape_grid" id="brush_shapes">
+                        <button class="brush_shape_button active" data-shape="round"       title="Round">●</button>
+                        <button class="brush_shape_button"        data-shape="square"      title="Square">■</button>
+                        <button class="brush_shape_button"        data-shape="calligraphy" title="Calligraphy">╱</button>
+                        <button class="brush_shape_button"        data-shape="spray"       title="Spray">⁘</button>
                     </div>
                 </div>
 
-                <div class="tool-section">
-                    <label class="section-label">Size</label>
-                    <input type="range" id="brushSize" min="1" max="80" value="4" />
-                    <span id="brushSizeVal">4px</span>
+                <div class="tool_section">
+                    <label class="section_label">Size</label>
+                    <input type="range" id="brush_size" min="1" max="80" value="4" />
+                    <span id="brush_size_val">4px</span>
                 </div>
 
-                <div class="tool-section">
-                    <label class="section-label">Opacity</label>
+                <div class="tool_section">
+                    <label class="section_label">Opacity</label>
                     <input type="range" id="opacity" min="0.05" max="1" step="0.05" value="1" />
-                    <span id="opacityVal">100%</span>
+                    <span id="opacity_val">100%</span>
                 </div>
 
-                <div class="tool-section">
-                    <label class="section-label">Fill Shape</label>
-                    <label class="toggle-row">
-                        <input type="checkbox" id="fillToggle" />
+                <div class="tool_section">
+                    <label class="section_label">Fill Shape</label>
+                    <label class="toggle_row">
+                        <input type="checkbox" id="fill_toggle" />
                         Fill
                     </label>
                 </div>
 
-                <div class="tool-section">
-                    <label class="section-label">Quick Colors</label>
-                    <div class="quick-color-palette" id="quickPalette"></div>
+                <div class="tool_section">
+                    <label class="section_label">Quick Colors</label>
+                    <div class="quick_color_palette" id="quick_palette"></div>
                 </div>
 
             </aside>
 
             <!-- ── CANVAS AREA ── -->
-            <main id="canvas-area">
+            <main id="canvas_area">
 
-                <div id="layer-tab-bar">
-                    <button class="icon-button small" id="canvasSizeBtn" title="Change Canvas Size">⚙ Size</button>
-                    <button class="layer-tab active" data-layer="0">
+                <div id="layer_tab_bar">
+                    <button class="icon_button small" id="canvas_size_btn" title="Change Canvas Size">⚙ Size</button>
+                    <button class="layer_tab active" data-layer="0">
                         Layer 1
-                        <span class="layer-eye-button" data-layer="0" title="Hide layer">👁</span>
-                        <span class="layer-clear-button" data-layer="0" title="Clear Layer 1">↺</span>
+                        <span class="layer_eye_button" data-layer="0" title="Hide layer">👁</span>
+                        <span class="layer_clear_button" data-layer="0" title="Clear Layer 1">↺</span>
                     </button>
-                    <button class="layer-tab" data-layer="1">
+                    <button class="layer_tab" data-layer="1">
                         Layer 2
-                        <span class="layer-eye-button" data-layer="1" title="Hide layer">👁</span>
-                        <span class="layer-clear-button" data-layer="1" title="Clear Layer 2">↺</span>
+                        <span class="layer_eye_button" data-layer="1" title="Hide layer">👁</span>
+                        <span class="layer_clear_button" data-layer="1" title="Clear Layer 2">↺</span>
                     </button>
-                    <button class="layer-tab" data-layer="2">
+                    <button class="layer_tab" data-layer="2">
                         Layer 3
-                        <span class="layer-eye-button" data-layer="2" title="Hide layer">👁</span>
-                        <span class="layer-clear-button" data-layer="2" title="Clear Layer 3">↺</span>
+                        <span class="layer_eye_button" data-layer="2" title="Hide layer">👁</span>
+                        <span class="layer_clear_button" data-layer="2" title="Clear Layer 3">↺</span>
                     </button>
                 </div>
 
-                <div id="canvas-viewport">
-                    <div id="canvas-scene">
-                        <div id="canvas-wrapper">
-                            <canvas id="imageCanvas"></canvas>
-                            <canvas class="draw-layer" id="layer0"></canvas>
-                            <canvas class="draw-layer" id="layer1"></canvas>
-                            <canvas class="draw-layer" id="layer2"></canvas>
-                            <canvas id="previewCanvas"></canvas>
+                <div id="canvas_viewport">
+                    <div id="canvas_scene">
+                        <div id="canvas_wrapper">
+                            <canvas id="image_canvas"></canvas>
+                            <canvas class="draw_layer" id="layer_0"></canvas>
+                            <canvas class="draw_layer" id="layer_1"></canvas>
+                            <canvas class="draw_layer" id="layer_2"></canvas>
+                            <canvas id="preview_canvas"></canvas>
                         </div>
                     </div>
                 </div>
 
-                <div id="status-bar">
-                    <span id="cursorPos">x: 0, y: 0</span>
-                    <span id="activeTool">Tool: Pencil</span>
-                    <span id="activeLayerLabel">Layer 1</span>
-                    <span id="zoomStatus">Scroll to zoom · Space + drag to pan</span>
+                <div id="status_bar">
+                    <span id="cursor_pos">x: 0, y: 0</span>
+                    <span id="active_tool_label">Tool: Pencil</span>
+                    <span id="active_layer_label">Layer 1</span>
+                    <span id="zoom_status">Scroll to zoom · Space + drag to pan</span>
                 </div>
 
             </main>
 
             <!-- ── RIGHT PANEL: IMAGE LIST ── -->
-            <aside id="image-panel" class="hidden">
+            <aside id="image_panel" class="hidden">
 
-                <div class="panel-header">
-                    <span class="section-label">Images</span>
+                <div class="panel_header">
+                    <span class="section_label">Images</span>
                 </div>
 
-                <div id="image-list"></div>
+                <div id="image_list_panel"></div>
 
-                <div id="image-detail" class="hidden">
+                <div id="image_detail" class="hidden">
 
-                    <div class="panel-section-title" id="imgDetailTitle">Image 1</div>
+                    <div class="panel_section_title" id="img_detail_title">Image 1</div>
 
-                    <div class="image-position-controls">
+                    <div class="image_position_controls">
                         <label>
                             Width
-                            <input type="number" id="imgW" min="10" max="3000" value="200" />
+                            <input type="number" id="img_w" min="10" max="3000" value="200" />
                         </label>
                         <label>
                             Height
-                            <input type="number" id="imgH" min="10" max="3000" value="200" />
+                            <input type="number" id="img_h" min="10" max="3000" value="200" />
                         </label>
                     </div>
 
-                    <div class="image-position-controls">
+                    <div class="image_position_controls">
                         <label>
                             X
-                            <input type="number" id="imgX" value="0" />
+                            <input type="number" id="img_x" value="0" />
                         </label>
                         <label>
                             Y
-                            <input type="number" id="imgY" value="0" />
+                            <input type="number" id="img_y" value="0" />
                         </label>
                     </div>
 
-                    <label class="toggle-row erasable-toggle">
-                        <input type="checkbox" id="imgErasable" />
+                    <label class="toggle_row erasable_toggle">
+                        <input type="checkbox" id="img_erasable" />
                         Erasable
                     </label>
 
-                    <button class="icon-button danger" id="cropBtn">✂ Crop</button>
-                    <button class="icon-button danger" id="removeImgBtn">🗑 Remove</button>
+                    <button class="icon_button danger" id="crop_btn">✂ Crop</button>
+                    <button class="icon_button danger" id="remove_img_btn">🗑 Remove</button>
 
                 </div>
 
@@ -217,103 +217,103 @@
 
 
         <!-- ── TEXT INPUT OVERLAY ── -->
-        <div id="text-input-overlay" class="hidden">
+        <div id="text_input_overlay" class="hidden">
             <input
                 type="text"
-                id="textInput"
+                id="text_input"
                 placeholder="Type here · Enter to stamp · Esc to cancel"
             />
         </div>
 
 
         <!-- ── CUSTOM COLOR PICKER POPUP ── -->
-        <div id="color-picker-popup" class="hidden">
+        <div id="color_picker_popup" class="hidden">
 
-            <div id="color-picker-header">
-                <span id="cpTitle">Stroke Color</span>
-                <button id="cpClose">✕</button>
+            <div id="color_picker_header">
+                <span id="cp_title">Stroke Color</span>
+                <button id="cp_close">✕</button>
             </div>
 
             <!-- Saturation and lightness gradient box -->
-            <div id="cpGradBox">
-                <canvas id="cpGradCanvas" width="220" height="160"></canvas>
-                <div id="cpGradThumb"></div>
+            <div id="cp_grad_box">
+                <canvas id="cp_grad_canvas" width="220" height="160"></canvas>
+                <div id="cp_grad_thumb"></div>
             </div>
 
             <!-- Hue slider bar -->
-            <div id="cpHueWrap">
-                <canvas id="cpHueBar" width="220" height="18"></canvas>
-                <div id="cpHueThumb"></div>
+            <div id="cp_hue_wrap">
+                <canvas id="cp_hue_bar" width="220" height="18"></canvas>
+                <div id="cp_hue_thumb"></div>
             </div>
 
             <!-- Alpha (opacity) slider bar -->
-            <div id="cpAlphaWrap">
-                <canvas id="cpAlphaBar" width="220" height="18"></canvas>
-                <div id="cpAlphaThumb"></div>
+            <div id="cp_alpha_wrap">
+                <canvas id="cp_alpha_bar" width="220" height="18"></canvas>
+                <div id="cp_alpha_thumb"></div>
             </div>
 
             <!-- Hex input and preview -->
-            <div id="color-picker-bottom">
-                <div id="cpPreview"></div>
-                <input type="text" id="cpHex" maxlength="7" placeholder="#1a1a2e" spellcheck="false" />
-                <button id="cpApply">OK</button>
+            <div id="color_picker_bottom">
+                <div id="cp_preview"></div>
+                <input type="text" id="cp_hex" maxlength="7" placeholder="#1a1a2e" spellcheck="false" />
+                <button id="cp_apply">OK</button>
             </div>
 
         </div>
 
 
         <!-- ── CROP OVERLAY ── -->
-        <div id="cropOverlay" class="hidden">
-            <div id="cropBox">
-                <div class="crop-handle nw"></div>
-                <div class="crop-handle ne"></div>
-                <div class="crop-handle sw"></div>
-                <div class="crop-handle se"></div>
+        <div id="crop_overlay" class="hidden">
+            <div id="crop_box">
+                <div class="crop_handle nw"></div>
+                <div class="crop_handle ne"></div>
+                <div class="crop_handle sw"></div>
+                <div class="crop_handle se"></div>
             </div>
-            <div id="crop-action-buttons">
-                <button id="confirmCrop">✓ Confirm Crop</button>
-                <button id="cancelCrop">✕ Cancel</button>
+            <div id="crop_action_buttons">
+                <button id="confirm_crop">✓ Confirm Crop</button>
+                <button id="cancel_crop">✕ Cancel</button>
             </div>
         </div>
 
 
         <!-- ── CANVAS SIZE MODAL ── -->
-        <div id="canvas-size-modal" class="hidden">
-            <div id="canvas-size-box">
+        <div id="canvas_size_modal" class="hidden">
+            <div id="canvas_size_box">
 
-                <div class="modal-header">
+                <div class="modal_header">
                     <span>⚙ Canvas Size</span>
-                    <button id="canvasSizeClose">✕</button>
+                    <button id="canvas_size_close">✕</button>
                 </div>
 
-                <div class="modal-body">
+                <div class="modal_body">
 
                     <label>
                         Width (pixels)
-                        <input type="number" id="canvasWInput" min="100" max="5000" value="1200" />
+                        <input type="number" id="canvas_w_input" min="100" max="5000" value="1200" />
                     </label>
 
                     <label>
                         Height (pixels)
-                        <input type="number" id="canvasHInput" min="100" max="5000" value="750" />
+                        <input type="number" id="canvas_h_input" min="100" max="5000" value="750" />
                     </label>
 
-                    <div class="modal-preset-grid">
-                        <button class="preset-button" data-w="1920" data-h="1080">1920 × 1080</button>
-                        <button class="preset-button" data-w="1280" data-h="720">1280 × 720</button>
-                        <button class="preset-button" data-w="1200" data-h="750">1200 × 750</button>
-                        <button class="preset-button" data-w="800"  data-h="600">800 × 600</button>
-                        <button class="preset-button" data-w="2480" data-h="3508">A4 Portrait</button>
-                        <button class="preset-button" data-w="3508" data-h="2480">A4 Landscape</button>
+                    <div class="modal_preset_grid">
+                        <button class="preset_button" data-w="1920" data-h="1080">1920 × 1080</button>
+                        <button class="preset_button" data-w="1280" data-h="720">1280 × 720</button>
+                        <button class="preset_button" data-w="1200" data-h="750">1200 × 750</button>
+                        <button class="preset_button" data-w="800"  data-h="600">800 × 600</button>
+                        <button class="preset_button" data-w="2480" data-h="3508">A4 Portrait</button>
+                        <button class="preset_button" data-w="3508" data-h="2480">A4 Landscape</button>
                     </div>
 
-                    <div class="modal-warning-note">
+                    <div class="modal_warning_note">
                         ⚠ Resizing clears all layers. Save your work first!
                     </div>
 
-                    <div class="modal-action-row">
-                        <button class="icon-button accent" id="canvasSizeApply">Apply</button>
-                        <button class="icon-button"        id="canvasSizeCancel">Cancel</button>
+                    <div class="modal_action_row">
+                        <button class="icon_button accent" id="canvas_size_apply">Apply</button>
+                        <button class="icon_button"        id="canvas_size_cancel">Cancel</button>
                     </div>
 
                 </div>
@@ -324,7 +324,7 @@
     </div><!-- end app -->
 
 
-    <audio id="bgMusic" loop>
+    <audio id="bg_music" loop>
         <source src="LtreeDo.mp3" type="audio/mpeg" />
     </audio>
 
